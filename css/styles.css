@@ -896,3 +896,578 @@ button, input, select, textarea {
     font-size: 0.85rem;
   }
 }
+
+/* ==========================================================================
+   MÓDULO DEL AGENTE A CARGO (LUXURY AGENT CARD & PROFILE)
+   ========================================================================== */
+.agent-profile-card {
+  background: linear-gradient(145deg, #0A1020 0%, #121D36 100%);
+  border: 1px solid rgba(200, 157, 53, 0.35);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  color: #FFFFFF;
+  margin: 1.5rem 0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.agent-profile-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle, rgba(200, 157, 53, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.agent-profile-header {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.agent-avatar-wrapper {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.agent-avatar-img {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2.5px solid var(--accent-gold);
+  box-shadow: 0 0 16px rgba(200, 157, 53, 0.25);
+  display: block;
+}
+
+.agent-verified-badge {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 22px;
+  height: 22px;
+  background: var(--accent-gold);
+  color: #080D1A;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 800;
+  border: 2px solid #0A1020;
+}
+
+.agent-info-meta {
+  flex: 1;
+  min-width: 220px;
+}
+
+.agent-role-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent-gold);
+  margin-bottom: 0.25rem;
+}
+
+.agent-name-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1.2;
+  margin-bottom: 0.35rem;
+}
+
+.agent-credentials-text {
+  font-size: 0.82rem;
+  color: #94A3B8;
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+}
+
+.agent-badges-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 0.4rem;
+}
+
+.agent-badge-chip {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #E2E8F0;
+  font-size: 0.75rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-full);
+}
+
+.agent-action-box {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.agent-direct-msg {
+  font-size: 0.82rem;
+  color: #CBD5E1;
+}
+
+/* ==========================================================================
+   MÓDULO DE SERVICIOS EXCLUSIVOS CONCIERGE & POST-VENTA
+   ========================================================================== */
+.portal-nav-bar {
+  max-width: 1300px;
+  margin: 0 auto 1.5rem;
+  padding: 0 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.portal-nav-pills {
+  display: inline-flex;
+  background: #FFFFFF;
+  padding: 0.35rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-sm);
+  gap: 4px;
+}
+
+.portal-pill-btn {
+  border: none;
+  background: transparent;
+  padding: 0.65rem 1.4rem;
+  border-radius: var(--radius-full);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.portal-pill-btn:hover {
+  color: var(--navy-blue);
+}
+
+.portal-pill-btn.active {
+  background: var(--navy-blue);
+  color: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.2);
+}
+
+.concierge-container {
+  max-width: 1300px;
+  margin: 0 auto 4rem;
+  padding: 0 1.5rem;
+}
+
+.concierge-header-banner {
+  background: linear-gradient(135deg, #090E1D 0%, #15223D 100%);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 2rem;
+  color: #FFFFFF;
+  margin-bottom: 2.5rem;
+  border: 1px solid rgba(200, 157, 53, 0.25);
+  box-shadow: var(--shadow-md);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.concierge-header-banner h2 {
+  font-size: 2.2rem;
+  color: #FFFFFF;
+  margin: 0.6rem 0;
+}
+
+.concierge-header-banner p {
+  color: #94A3B8;
+  max-width: 720px;
+  margin: 0 auto;
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+
+.concierge-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 1.75rem;
+}
+
+.concierge-card {
+  background: linear-gradient(145deg, #0A1020 0%, #131E38 100%);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(200, 157, 53, 0.35);
+  padding: 2.25rem 1.85rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+  color: #FFFFFF;
+}
+
+.concierge-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(circle, rgba(200, 157, 53, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.concierge-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  border-color: var(--accent-gold);
+}
+
+.concierge-icon-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(200, 157, 53, 0.2), rgba(200, 157, 53, 0.05));
+  border: 1.5px solid var(--accent-gold);
+  color: var(--accent-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 0 15px rgba(200, 157, 53, 0.2);
+}
+
+.concierge-badge-top {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: rgba(200, 157, 53, 0.2);
+  color: var(--accent-gold);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(200, 157, 53, 0.4);
+}
+
+.concierge-card-title {
+  font-size: 1.35rem;
+  color: #FFFFFF;
+  margin-bottom: 0.6rem;
+  line-height: 1.3;
+}
+
+.concierge-card-desc {
+  font-size: 0.88rem;
+  color: #94A3B8;
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+
+.concierge-features-list {
+  list-style: none;
+  margin-bottom: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.concierge-features-list li {
+  font-size: 0.84rem;
+  color: #CBD5E1;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.4;
+}
+
+.concierge-features-list li svg {
+  color: var(--accent-gold);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.concierge-card-footer {
+  margin-top: auto;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.concierge-pricing {
+  font-size: 0.78rem;
+  color: #94A3B8;
+}
+
+.concierge-pricing strong {
+  display: block;
+  font-size: 1rem;
+  color: var(--accent-gold);
+}
+
+.btn-brochure {
+  background: transparent;
+  color: var(--navy-blue);
+  border: 1px solid var(--border-subtle);
+  padding: 0.45rem 0.85rem;
+  border-radius: var(--radius-md);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: var(--transition);
+}
+
+.btn-brochure:hover {
+  border-color: var(--accent-gold);
+  color: var(--accent-gold);
+  background: rgba(200, 157, 53, 0.08);
+}
+
+/* ==========================================================================
+   EQUIPO DE ASESORES SHOWCASE
+   ========================================================================== */
+.team-grid-public {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  max-width: 1300px;
+  margin: 0 auto 4rem;
+  padding: 0 1.5rem;
+}
+
+.team-member-card {
+  background: #FFFFFF;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+}
+
+.team-member-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+  border-color: rgba(200, 157, 53, 0.4);
+}
+
+.team-member-cover {
+  height: 200px;
+  background: linear-gradient(135deg, #090E1D, #1E293B);
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 0;
+}
+
+.team-member-photo {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3.5px solid var(--accent-gold);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  margin-bottom: -55px;
+  background: white;
+  z-index: 2;
+}
+
+.team-member-body {
+  padding: 4rem 1.75rem 1.75rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.team-member-body h3 {
+  font-size: 1.4rem;
+  color: var(--navy-blue);
+  margin-bottom: 0.25rem;
+}
+
+.team-member-body .role {
+  color: var(--accent-gold);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.8rem;
+}
+
+.team-member-body .bio {
+  color: var(--text-muted);
+  font-size: 0.86rem;
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+}
+
+/* ==========================================================================
+   ETIQUETA FLOTANTE DE OFERTA (PARTE INFERIOR IZQUIERDA DE LA FOTO)
+   ========================================================================== */
+.badge-oferta {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  background: linear-gradient(135deg, #DC2626 0%, #991B1B 100%);
+  color: #FFFFFF;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: 0 4px 14px rgba(220, 38, 38, 0.5);
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  animation: pulse-oferta 2.5s infinite;
+}
+
+@keyframes pulse-oferta {
+  0%, 100% {
+    box-shadow: 0 4px 14px rgba(220, 38, 38, 0.5);
+  }
+  50% {
+    box-shadow: 0 4px 20px rgba(220, 38, 38, 0.8);
+  }
+}
+
+/* ==========================================================================
+   MÓDULO DE CARGA MASIVA DE FOTOS (EXCLUSIVO PANEL DE ADMINISTRACIÓN)
+   ========================================================================== */
+.admin-photo-uploader-box {
+  background: #F8FAFC;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+}
+
+.photo-counter-badge {
+  background: var(--navy-blue);
+  color: var(--accent-gold);
+  border: 1px solid rgba(200, 157, 53, 0.4);
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.photo-counter-badge.limit-reached {
+  background: #991B1B;
+  color: #FFFFFF;
+  border-color: #EF4444;
+}
+
+.photo-dropzone {
+  border: 2px dashed #CBD5E1;
+  background: #FFFFFF;
+  border-radius: var(--radius-md);
+  padding: 1.5rem 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.photo-dropzone:hover, .photo-dropzone.dragover {
+  border-color: var(--accent-gold);
+  background: rgba(200, 157, 53, 0.05);
+}
+
+.photo-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(95px, 1fr));
+  gap: 10px;
+  margin-top: 1rem;
+  max-height: 240px;
+  overflow-y: auto;
+  padding: 4px;
+}
+
+.photo-thumb-item {
+  position: relative;
+  width: 100%;
+  height: 80px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1.5px solid var(--border-subtle);
+  background: #0F172A;
+}
+
+.photo-thumb-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-thumb-cover-tag {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  background: var(--accent-gold);
+  color: #080D1A;
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.photo-thumb-delete-btn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 20px;
+  height: 20px;
+  background: rgba(239, 68, 68, 0.9);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.photo-thumb-delete-btn:hover {
+  background: #DC2626;
+  transform: scale(1.1);
+}
+
+

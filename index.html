@@ -104,14 +104,57 @@
             </div>
           </div>
 
-          <div class="filter-group" style="margin-bottom:1rem;">
-            <label>URL de Imagen Principal (HD)</label>
-            <input type="url" id="propImage" class="form-control" placeholder="https://images.unsplash.com/photo-...">
+          <!-- Módulo Exclusivo de Carga Masiva de Fotos (Solo Administrador) -->
+          <div class="admin-photo-uploader-box" style="margin-bottom:1.25rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem; flex-wrap:wrap; gap:8px;">
+              <label style="font-weight:700; color:var(--navy-blue); font-size:0.92rem; display:flex; align-items:center; gap:6px;">
+                <span>📸 Galería Fotográfica del Inmueble</span>
+              </label>
+              <span id="adminPhotoCounterBadge" class="photo-counter-badge">0 / 20 Fotos Subidas</span>
+            </div>
+
+            <!-- Zona de Carga / Drag & Drop -->
+            <div class="photo-dropzone" id="photoDropzone" onclick="document.getElementById('propFileInput').click()">
+              <input type="file" id="propFileInput" accept="image/*" multiple style="display:none;" onchange="app.handleFilesSelected(event)">
+              <svg width="28" height="28" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color:var(--accent-gold); margin-bottom:0.4rem;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+              <div style="font-size:0.88rem; font-weight:700; color:var(--navy-blue);">Haga clic o arrastre fotografías aquí</div>
+              <div style="font-size:0.78rem; color:var(--text-muted);">Soporta JPG, PNG, WebP en alta resolución (Máximo 20 fotos)</div>
+            </div>
+
+            <!-- Añadir por URL directa -->
+            <div style="display:flex; gap:8px; margin-top:0.75rem;">
+              <input type="url" id="propUrlInput" class="form-control" placeholder="O pegue una URL de imagen HD (Unsplash, CDN...)" style="font-size:0.85rem;">
+              <button type="button" class="btn btn-outline" style="padding:0.5rem 1rem; font-size:0.85rem;" onclick="app.addPhotoFromUrl()">+ Añadir URL</button>
+            </div>
+
+            <!-- Grilla de Previsualización de Fotos Cargadas -->
+            <div class="photo-preview-grid" id="adminPhotoGridPreview">
+              <!-- Renderizado dinámico por JS -->
+            </div>
           </div>
 
-          <div class="filter-group" style="margin-bottom:1rem;">
-            <label>Amenidades (Separadas por comas)</label>
-            <input type="text" id="propAmenities" class="form-control" placeholder="Alberca, Seguridad 24/7, Domótica, Cava, Gimnasio">
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem; margin-bottom:1rem;">
+            <div class="filter-group">
+              <label>Asesor / Agente a Cargo *</label>
+              <select id="propAgentId" class="form-control" required>
+                <option value="1">Valentina Montoya (Directora Comercial)</option>
+                <option value="2">Rodrigo Alarcón (Senior Real Estate Advisor)</option>
+                <option value="3">Lic. Fernando Solís (Director Legal & Cierres)</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label>Amenidades (Separadas por comas)</label>
+              <input type="text" id="propAmenities" class="form-control" placeholder="Alberca, Seguridad 24/7, Domótica, Cava, Gimnasio">
+            </div>
+          </div>
+
+          <!-- Casilla de OFERTA Especial -->
+          <div style="background:rgba(220,38,38,0.06); border:1px solid rgba(220,38,38,0.25); border-radius:var(--radius-md); padding:0.9rem 1.1rem; margin-bottom:1.25rem; display:flex; align-items:center; gap:12px;">
+            <input type="checkbox" id="propIsOffer" style="width:20px; height:20px; cursor:pointer; accent-color:#DC2626;">
+            <div>
+              <label for="propIsOffer" style="font-weight:700; color:#991B1B; font-size:0.9rem; cursor:pointer; display:block;">🔥 Destacar como Propiedad en OFERTA Especial</label>
+              <span style="font-size:0.78rem; color:#7F1D1D;">Muestra la etiqueta flotante de 'OFERTA' en la esquina inferior izquierda de la imagen para los clientes.</span>
+            </div>
           </div>
 
           <div class="filter-group" style="margin-bottom:1.5rem;">
@@ -122,6 +165,63 @@
           <div style="display:flex; justify-content:flex-end; gap:12px;">
             <button type="button" class="btn btn-outline" onclick="app.closeModal()">Cancelar</button>
             <button type="submit" class="btn btn-gold" id="btnSaveProp">Guardar y Publicar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Cotización Rápida Concierge -->
+  <div class="modal-overlay" id="conciergeModal" onclick="if(event.target === this) app.closeModal()">
+    <div class="modal-card" style="max-width:650px;">
+      <button class="modal-close-btn" onclick="app.closeModal()">&times;</button>
+      <div class="modal-content-inner">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:0.4rem;">
+          <span class="tag-badge" style="background:rgba(200,157,53,0.2); color:var(--accent-gold);">Concierge & Post-Venta</span>
+        </div>
+        <h3 style="font-size:1.6rem; margin-bottom:0.3rem;" id="conciergeModalTitle">Solicitud de Cotización Rápida</h3>
+        <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:1.5rem;">Nuestro equipo exclusivo de Concierge coordinará su servicio con atención personalizada y confidencial.</p>
+
+        <form id="conciergeQuoteForm" onsubmit="app.handleConciergeQuoteSubmit(event)">
+          <input type="hidden" id="conciergeServiceId">
+
+          <div class="filter-group" style="margin-bottom:1rem;">
+            <label>Servicio Seleccionado</label>
+            <input type="text" id="conciergeServiceName" class="form-control" readonly style="background:#F1F5F9; font-weight:700; color:var(--navy-blue);">
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
+            <div class="filter-group">
+              <label>Nombre del Solicitante *</label>
+              <input type="text" id="conciergeClientName" required class="form-control" placeholder="Ej. Lic. Fernando Morales">
+            </div>
+            <div class="filter-group">
+              <label>WhatsApp / Teléfono *</label>
+              <input type="tel" id="conciergeClientPhone" required class="form-control" placeholder="+52 55 1234 5678">
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
+            <div class="filter-group">
+              <label>Inmueble / Zona *</label>
+              <input type="text" id="conciergeClientLocation" required class="form-control" placeholder="Ej. Lomas de Chapultepec / Polanco">
+            </div>
+            <div class="filter-group">
+              <label>Fecha Estimada Deseada</label>
+              <input type="date" id="conciergeDesiredDate" class="form-control">
+            </div>
+          </div>
+
+          <div class="filter-group" style="margin-bottom:1.5rem;">
+            <label>Requerimientos Específicos o Comentarios</label>
+            <textarea id="conciergeNotes" rows="3" class="form-control" placeholder="Ej. Metros cuadrados aproximados, piezas de arte delicadas, horarios preferidos..."></textarea>
+          </div>
+
+          <div style="display:flex; justify-content:flex-end; gap:12px;">
+            <button type="button" class="btn btn-outline" onclick="app.closeModal()">Cancelar</button>
+            <button type="submit" class="btn btn-whatsapp" style="display:flex; align-items:center; gap:8px;">
+              <span>📱 Enviar a WhatsApp Concierge</span>
+            </button>
           </div>
         </form>
       </div>
@@ -173,6 +273,44 @@
             <button type="submit" class="btn btn-gold">Guardar Lead</button>
           </div>
         </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Brochure PDF / Ficha Técnica Digital -->
+  <div class="modal-overlay" id="brochureModal" onclick="if(event.target === this) app.closeModal()">
+    <div class="modal-card" style="max-width:620px;">
+      <button class="modal-close-btn" onclick="app.closeModal()">&times;</button>
+      <div class="modal-content-inner">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:0.4rem;">
+          <span class="tag-badge" style="background:rgba(200,157,53,0.2); color:var(--accent-gold);">Dossier Ejecutivo Oficial</span>
+        </div>
+        <h3 style="font-size:1.6rem; margin-bottom:0.3rem;" id="brochureModalTitle">Ficha Técnica & Brochure en PDF</h3>
+        <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:1.25rem;">Descargue la presentación arquitectónica en alta resolución o solicite el dossier confidencial a su asesor.</p>
+
+        <!-- Vista Previa de la Propiedad en Modal -->
+        <div id="brochurePreviewBox" style="background:#0F172A; border:1px solid rgba(200,157,53,0.3); border-radius:var(--radius-md); padding:1rem; color:white; display:flex; gap:1rem; align-items:center; margin-bottom:1.5rem;">
+          <!-- Inyectado por JS -->
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:1.5rem;">
+          <button type="button" class="btn btn-gold" style="padding:0.9rem; font-size:0.95rem; display:flex; align-items:center; justify-content:center; gap:8px;" onclick="app.generateAndPrintPDF()">
+            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            <span>Descargar / Imprimir Brochure en PDF</span>
+          </button>
+
+          <button type="button" class="btn btn-whatsapp" style="padding:0.9rem; font-size:0.95rem; display:flex; align-items:center; justify-content:center; gap:8px;" onclick="app.requestBrochureViaWhatsApp()">
+            <span>📱 Solicitar Dossier Confidencial por WhatsApp</span>
+          </button>
+        </div>
+
+        <div style="border-top:1px solid var(--border-subtle); padding-top:1.2rem;">
+          <h4 style="font-size:0.95rem; color:var(--navy-blue); margin-bottom:0.5rem;">¿Prefiere recibir la ficha por correo electrónico?</h4>
+          <form onsubmit="app.handleEmailBrochureSubmit(event)" style="display:flex; gap:8px;">
+            <input type="email" id="brochureEmailInput" required class="form-control" placeholder="su.correo@ejemplo.com" style="flex:1;">
+            <button type="submit" class="btn btn-primary" style="padding:0.6rem 1.2rem;">Enviar</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
