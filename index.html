@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lúmina Real Estate | Portal Exclusivo</title>
+  <meta name="description" content="Portal de Bienes Raíces de Alta Gama.">
+  
+  <!-- Google Fonts: Playfair Display + Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <div id="appContainer">
+    <!-- Renderizado dinámico según modo (Admin / Cliente / Propietario) -->
+  </div>
+
+  <!-- Modal Ficha de Propiedad -->
+  <div class="modal-overlay" id="propertyModal" onclick="if(event.target === this) app.closeModal()">
+    <div class="modal-card">
+      <button class="modal-close-btn" onclick="app.closeModal()">&times;</button>
+      <div id="modalPropertyContent">
+        <!-- Inyectado por JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Nueva Propiedad (Admin) -->
+  <div class="modal-overlay" id="newPropertyModal" onclick="if(event.target === this) app.closeModal()">
+    <div class="modal-card" style="max-width:700px;">
+      <button class="modal-close-btn" onclick="app.closeModal()">&times;</button>
+      <div class="modal-content-inner">
+        <h3 style="font-size:1.6rem; margin-bottom:0.3rem;" id="propertyModalTitle">+ Publicar Nueva Propiedad</h3>
+        <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:1.5rem;">Complete los datos técnicos para incorporarla al inventario y catálogo de clientes.</p>
+        
+        <form id="propertyForm" onsubmit="app.handlePropertySubmit(event)">
+          <input type="hidden" id="propEditId">
+
+          <div style="display:grid; grid-template-columns: 2fr 1fr; gap:1rem; margin-bottom:1rem;">
+            <div class="filter-group">
+              <label>Título del Inmueble *</label>
+              <input type="text" id="propTitle" required class="form-control" placeholder="Ej. Villa Serena & Infinity Pool">
+            </div>
+            <div class="filter-group">
+              <label>Operación *</label>
+              <select id="propOperation" class="form-control" required>
+                <option value="Venta">Venta</option>
+                <option value="Alquiler">Alquiler</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:1rem; margin-bottom:1rem;">
+            <div class="filter-group">
+              <label>Categoría *</label>
+              <select id="propCategory" class="form-control" required>
+                <option value="Villa Residencial">Villa Residencial</option>
+                <option value="Penthouse">Penthouse</option>
+                <option value="Casa">Casa</option>
+                <option value="Apartamento">Apartamento</option>
+                <option value="Terreno">Terreno</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label>Precio *</label>
+              <input type="number" id="propPrice" required class="form-control" placeholder="Ej. 850000">
+            </div>
+            <div class="filter-group">
+              <label>Moneda *</label>
+              <select id="propCurrency" class="form-control" required>
+                <option value="USD">USD</option>
+                <option value="USD/mes">USD/mes</option>
+                <option value="MXN">MXN</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="filter-group" style="margin-bottom:1rem;">
+            <label>Ubicación / Zona *</label>
+            <input type="text" id="propLocation" required class="form-control" placeholder="Ej. Lomas de Chapultepec, CDMX">
+          </div>
+
+          <div style="display:grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap:1rem; margin-bottom:1rem;">
+            <div class="filter-group">
+              <label>Recámaras</label>
+              <input type="number" id="propBedrooms" class="form-control" value="3">
+            </div>
+            <div class="filter-group">
+              <label>Baños</label>
+              <input type="number" step="0.5" id="propBathrooms" class="form-control" value="3.5">
+            </div>
+            <div class="filter-group">
+              <label>Estacionamientos</label>
+              <input type="number" id="propParking" class="form-control" value="2">
+            </div>
+            <div class="filter-group">
+              <label>Área (m²)</label>
+              <input type="number" id="propArea" class="form-control" value="320">
+            </div>
+          </div>
+
+          <div class="filter-group" style="margin-bottom:1rem;">
+            <label>URL de Imagen Principal (HD)</label>
+            <input type="url" id="propImage" class="form-control" placeholder="https://images.unsplash.com/photo-...">
+          </div>
+
+          <div class="filter-group" style="margin-bottom:1rem;">
+            <label>Amenidades (Separadas por comas)</label>
+            <input type="text" id="propAmenities" class="form-control" placeholder="Alberca, Seguridad 24/7, Domótica, Cava, Gimnasio">
+          </div>
+
+          <div class="filter-group" style="margin-bottom:1.5rem;">
+            <label>Descripción Comercial Completa</label>
+            <textarea id="propDesc" rows="3" class="form-control" placeholder="Detalles de acabados, arquitectura, vistas..."></textarea>
+          </div>
+
+          <div style="display:flex; justify-content:flex-end; gap:12px;">
+            <button type="button" class="btn btn-outline" onclick="app.closeModal()">Cancelar</button>
+            <button type="submit" class="btn btn-gold" id="btnSaveProp">Guardar y Publicar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Nuevo Lead / Cliente (Admin) -->
+  <div class="modal-overlay" id="newLeadModal" onclick="if(event.target === this) app.closeModal()">
+    <div class="modal-card" style="max-width:550px;">
+      <button class="modal-close-btn" onclick="app.closeModal()">&times;</button>
+      <div class="modal-content-inner">
+        <h3 style="font-size:1.6rem; margin-bottom:0.3rem;">+ Registrar Prospecto</h3>
+        <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:1.5rem;">Añada un nuevo comprador o propietario a su pipeline comercial.</p>
+
+        <form onsubmit="app.handleNewLeadSubmit(event)">
+          <div class="filter-group" style="margin-bottom:1rem;">
+            <label>Nombre Completo *</label>
+            <input type="text" id="leadName" required class="form-control" placeholder="Ej. Roberto Gómez">
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
+            <div class="filter-group">
+              <label>WhatsApp / Teléfono *</label>
+              <input type="tel" id="leadPhone" required class="form-control" placeholder="+52 55 1234 5678">
+            </div>
+            <div class="filter-group">
+              <label>Tipo de Contacto *</label>
+              <select id="leadType" class="form-control" required>
+                <option value="Comprador">Comprador</option>
+                <option value="Propietario">Propietario</option>
+                <option value="Inversionista">Inversionista</option>
+              </select>
+            </div>
+          </div>
+          <div class="filter-group" style="margin-bottom:1rem;">
+            <label>Correo Electrónico</label>
+            <input type="email" id="leadEmail" class="form-control" placeholder="roberto@email.com">
+          </div>
+          <div class="filter-group" style="margin-bottom:1rem;">
+            <label>Propiedad de Interés / Zona</label>
+            <input type="text" id="leadInterest" class="form-control" placeholder="Ej. Villa Serena / Polanco">
+          </div>
+          <div class="filter-group" style="margin-bottom:1.5rem;">
+            <label>Presupuesto / Notas</label>
+            <input type="text" id="leadBudget" class="form-control" placeholder="Ej. $850,000 USD contado">
+          </div>
+
+          <div style="display:flex; justify-content:flex-end; gap:12px;">
+            <button type="button" class="btn btn-outline" onclick="app.closeModal()">Cancelar</button>
+            <button type="submit" class="btn btn-gold">Guardar Lead</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
