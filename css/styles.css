@@ -734,22 +734,165 @@ button, input, select, textarea {
   to { transform: translateX(0); opacity: 1; }
 }
 
+/* ==========================================================================
+   MOBILE & RESPONSIVE DESIGN (100% Mobile-Friendly)
+   ========================================================================== */
+
+/* Mobile Navigation Bar for Admin */
+.mobile-bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: var(--sidebar-bg);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 8px 12px;
+  z-index: 1000;
+  justify-content: space-around;
+  backdrop-filter: blur(10px);
+}
+
+.mobile-nav-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  color: #94A3B8;
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+}
+
+.mobile-nav-btn.active {
+  color: var(--accent-gold);
+}
+
+.mobile-nav-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
 @media (max-width: 992px) {
+  .admin-layout {
+    flex-direction: column;
+    padding-bottom: 70px; /* Espacio para barra inferior móvil */
+  }
+
   .admin-sidebar {
-    width: 80px;
+    display: none; /* Se reemplaza por la barra inferior en móviles */
   }
-  .sidebar-brand, .menu-label, .nav-item span, .admin-info {
-    display: none;
+
+  .mobile-bottom-nav {
+    display: flex;
   }
-  .sidebar-header, .sidebar-footer {
-    justify-content: center;
-    padding: 1.25rem 0.5rem;
+
+  .admin-topbar {
+    padding: 1rem 1.25rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
   }
-  .nav-item {
-    justify-content: center;
-    padding: 0.8rem;
+
+  .admin-topbar > div:last-child {
+    width: 100%;
+    display: flex;
+    gap: 8px;
   }
+
+  .admin-topbar > div:last-child .btn {
+    flex: 1;
+    font-size: 0.82rem;
+    padding: 0.6rem 0.8rem;
+  }
+
+  .admin-container {
+    padding: 1.25rem 1rem;
+  }
+
+  .metrics-row {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
   .links-section {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .link-card {
+    padding: 1.25rem;
+  }
+
+  .hero-public {
+    padding: 3rem 1.25rem;
+  }
+
+  .hero-public h2 {
+    font-size: 1.85rem;
+  }
+
+  .hero-public p {
+    font-size: 0.95rem;
+  }
+
+  .public-header {
+    padding: 0.75rem 1rem;
+  }
+
+  .property-grid-public {
+    grid-template-columns: 1fr;
+    margin: -1.5rem auto 3rem;
+    padding: 0 1rem;
+    gap: 1.5rem;
+  }
+
+  .prop-card-public .card-img-box {
+    height: 200px;
+  }
+
+  .modal-card {
+    max-height: 95vh;
+    border-radius: var(--radius-md);
+  }
+
+  .modal-content-inner {
+    padding: 1.25rem;
+  }
+
+  #modalMainImg {
+    height: 240px !important;
+  }
+
+  .data-table-container, .table-card {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .data-table th, .data-table td {
+    padding: 0.75rem 0.9rem;
+    font-size: 0.8rem;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 576px) {
+  .topbar-title h1 {
+    font-size: 1.25rem;
+  }
+
+  .link-url-box {
+    font-size: 0.75rem;
+    padding: 0.75rem;
+  }
+
+  .btn {
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
   }
 }
